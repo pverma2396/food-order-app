@@ -8,6 +8,8 @@
 package com.crio.qeats.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mongodb.lang.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
@@ -33,7 +35,27 @@ import lombok.NoArgsConstructor;
 //  ]
 // }
 
+@Data
 public class Restaurant {
+  
+  @NonNull
+  String restaurantId;
+  @NonNull
+  String name;
+  @NonNull
+  String city;
+  @NonNull
+  String imageUrl;
+  @NonNull
+  Double latitude;
+  @NonNull
+  Double longitude;
+  @NonNull
+  String opensAt;
+  @NonNull
+  String closesAt;
+  @NonNull
+  String[] attributes;
 
 }
 
