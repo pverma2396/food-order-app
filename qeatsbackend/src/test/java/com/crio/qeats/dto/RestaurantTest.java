@@ -40,6 +40,9 @@ class RestaurantTest {
     restaurant = new ObjectMapper().readValue(jsonString, Restaurant.class);
 
     // Deserialize the Json string from Restaurant class to ensure its done cleanly.
+    // Restaurant restaurant = new Restaurant();
+    // restaurant = new ObjectMapper().readValue(jsonString, Restaurant.class);
+
     String actualJsonString = "";
     actualJsonString = new ObjectMapper().writeValueAsString(restaurant);
     JSONAssert.assertEquals(jsonString, actualJsonString, true);

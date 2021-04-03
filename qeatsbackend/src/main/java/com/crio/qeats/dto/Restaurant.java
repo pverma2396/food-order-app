@@ -8,6 +8,8 @@
 package com.crio.qeats.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.mongodb.lang.NonNull;
 
 import java.util.ArrayList;
@@ -38,6 +40,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class Restaurant {
   
+  @JsonIgnore
+  String id;
   @NonNull
   String restaurantId;
   @NonNull
@@ -56,6 +60,5 @@ public class Restaurant {
   String closesAt;
   @NonNull
   String[] attributes;
-
 }
 
