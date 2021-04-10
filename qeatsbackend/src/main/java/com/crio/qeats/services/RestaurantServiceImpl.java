@@ -64,6 +64,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     GetRestaurantsResponse getRestaurantsResponse = new GetRestaurantsResponse(restaurants);
     return getRestaurantsResponse;
     //return null;
+
   }
 
 

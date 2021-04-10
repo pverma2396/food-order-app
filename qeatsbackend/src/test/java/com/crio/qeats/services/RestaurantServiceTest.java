@@ -20,6 +20,8 @@ import com.crio.qeats.exchanges.GetRestaurantsRequest;
 import com.crio.qeats.exchanges.GetRestaurantsResponse;
 import com.crio.qeats.models.RestaurantEntity;
 import com.crio.qeats.repositoryservices.RestaurantRepositoryService;
+import com.crio.qeats.repositoryservices.RestaurantRepositoryServiceDummyImpl;
+import com.crio.qeats.repositoryservices.RestaurantRepositoryServiceImpl;
 import com.crio.qeats.utils.FixtureHelpers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,6 +39,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 
 // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI
 //  Pass all the RestaurantService test cases.
@@ -45,6 +48,7 @@ import org.springframework.test.context.ActiveProfiles;
 // 1. Make modifications to the tests if necessary so that all test cases pass
 // 2. Test RestaurantService Api by mocking RestaurantRepositoryService.
 
+// @ContextConfiguration(classes = {RestaurantRepositoryServiceImpl.class})
 @SpringBootTest(classes = {QEatsApplication.class})
 @MockitoSettings(strictness = Strictness.STRICT_STUBS)
 @DirtiesContext
