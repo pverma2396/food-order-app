@@ -60,97 +60,101 @@ public class RestaurantController {
   //@GetMapping(RESTAURANTS_API)
   @RequestMapping(value = "/qeats/v1/restaurants", method = RequestMethod.GET)
   public ResponseEntity<GetRestaurantsResponse> getRestaurants(
-       GetRestaurantsRequest getRestaurantsRequest) {
+      GetRestaurantsRequest getRestaurantsRequest) {
 
-    GetRestaurantsResponse getRestaurantsResponse;
+    try {
+      GetRestaurantsResponse getRestaurantsResponse;
 
-    GeoLocation geoLocation = new GeoLocation(getRestaurantsRequest.getLatitude(),
-          getRestaurantsRequest.getLongitude());
-    
-    System.out.println(LocalTime.now());
-    // Logger.info("Congrats! Your QEatsApplication server has started");
+      GeoLocation geoLocation = new GeoLocation(getRestaurantsRequest.getLatitude(),
+              getRestaurantsRequest.getLongitude());
+        
+      System.out.println(LocalTime.now());
+      // Logger.info("Congrats! Your QEatsApplication server has started");
 
-    if (!geoLocation.isValidGeoLocation()) {
-      System.out.println(geoLocation.isValidGeoLocation());
-      return (ResponseEntity.status(400).body(null));
-    }
+      if (!geoLocation.isValidGeoLocation()) {
+        System.out.println(geoLocation.isValidGeoLocation());
+        return (ResponseEntity.status(400).body(null));
+      }
 
-    
-    //CHECKSTYLE:OFF
-    getRestaurantsResponse = restaurantService
-        .findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
-    // log.info("getRestaurants returned {}", getRestaurantsResponse);
-    //CHECKSTYLE:ON
-    Pattern pattern = Pattern.compile(
-                    "[^[a-z0-9 ]^[\\'\\!\\.\\,\\-\\/\\_\\&\\:\\@\\$\\#\\+\\)\\(]]",
-                    Pattern.CASE_INSENSITIVE);
-    List<Restaurant> restaurants = new ArrayList<Restaurant>();
-    System.out.println(getRestaurantsResponse.getRestaurants().size());
-    for (Restaurant grr : getRestaurantsResponse.getRestaurants()) {
-      // System.out.println(grr.getName());
-      Matcher m = pattern.matcher(grr.getName());
-      boolean b = m.find();
-
-      if (!b) {
-        restaurants.add(grr);
-      } else {
-        int flag = 0;
+        
+      //CHECKSTYLE:OFF
+      getRestaurantsResponse = restaurantService
+            .findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
+      // log.info("getRestaurants returned {}", getRestaurantsResponse);
+      //CHECKSTYLE:ON
+      Pattern pattern = Pattern.compile(
+                        "[^[a-z0-9 ]^[\\'\\!\\.\\,\\-\\/\\_\\&\\:\\@\\$\\#\\+\\)\\(]]",
+                        Pattern.CASE_INSENSITIVE);
+      List<Restaurant> restaurants = new ArrayList<Restaurant>();
+      System.out.println(getRestaurantsResponse.getRestaurants().size());
+      for (Restaurant grr : getRestaurantsResponse.getRestaurants()) {
         // System.out.println(grr.getName());
-        if (grr.getName().contains("é")) {
-          String correctedName = grr.getName().replace('é', 'e');
-          grr.setName(correctedName);
-          flag = 1;
-        }
-        if (grr.getName().contains("ö")) {
-          String correctedName = grr.getName().replace('ö', 'o');
-          grr.setName(correctedName);
-          flag = 1;
-        }
-        if (grr.getName().contains("í")) {
-          String correctedName = grr.getName().replace('í', 'i');
-          grr.setName(correctedName);
-          flag = 1;
-        }
-        if (grr.getName().contains("ñ")) {
-          String correctedName = grr.getName().replace('ñ', 'n');
-          grr.setName(correctedName);
-          flag = 1;
-        }
-        if (grr.getName().contains("ñ")) {
-          String correctedName = grr.getName().replace('ñ', 'n');
-          grr.setName(correctedName);
-          flag = 1;
-        }
-        if (grr.getName().contains("ó")) {
-          String correctedName = grr.getName().replace('ó', 'o');
-          grr.setName(correctedName);
-          flag = 1;
-        }
-        if (grr.getName().contains("ä")) {
-          String correctedName = grr.getName().replace('ä', 'a');
-          grr.setName(correctedName);
-          flag = 1;
-        }
-        if (grr.getName().contains("»")) {
-          String correctedName = grr.getName().replace('»', '»');
-          grr.setName(correctedName);
-          flag = 1;
-        }
-        restaurants.add(grr);
-        if (flag == 0) {
-          System.out.println(grr.getName());
+        Matcher m = pattern.matcher(grr.getName());
+        boolean b = m.find();
+
+        if (!b) {
+          restaurants.add(grr);
+        } else {
+          int flag = 0;
+          // System.out.println(grr.getName());
+          if (grr.getName().contains("é")) {
+            String correctedName = grr.getName().replace('é', 'e');
+            grr.setName(correctedName);
+            flag = 1;
+          }
+          if (grr.getName().contains("ö")) {
+            String correctedName = grr.getName().replace('ö', 'o');
+            grr.setName(correctedName);
+            flag = 1;
+          }
+          if (grr.getName().contains("í")) {
+            String correctedName = grr.getName().replace('í', 'i');
+            grr.setName(correctedName);
+            flag = 1;
+          }
+          if (grr.getName().contains("ñ")) {
+            String correctedName = grr.getName().replace('ñ', 'n');
+            grr.setName(correctedName);
+            flag = 1;
+          }
+          if (grr.getName().contains("ñ")) {
+            String correctedName = grr.getName().replace('ñ', 'n');
+            grr.setName(correctedName);
+            flag = 1;
+          }
+          if (grr.getName().contains("ó")) {
+            String correctedName = grr.getName().replace('ó', 'o');
+            grr.setName(correctedName);
+            flag = 1;
+          }
+          if (grr.getName().contains("ä")) {
+            String correctedName = grr.getName().replace('ä', 'a');
+            grr.setName(correctedName);
+            flag = 1;
+          }
+          if (grr.getName().contains("»")) {
+            String correctedName = grr.getName().replace('»', '»');
+            grr.setName(correctedName);
+            flag = 1;
+          }
+          restaurants.add(grr);
+          if (flag == 0) {
+            System.out.println(grr.getName());
+          }
         }
       }
-    }
 
-    GetRestaurantsResponse getRestaurantsResponse2 = new GetRestaurantsResponse(restaurants);
-    System.out.println(getRestaurantsResponse2.getRestaurants().size());
-    // TimeUnit.SECONDS.sleep(3);
-    System.out.println(LocalTime.now());
-    return new ResponseEntity<>(getRestaurantsResponse2, HttpStatus.OK);
-    // return ResponseEntity.status(HttpStatus.OK).body(getRestaurantsResponse);
-    
-    // return ResponseEntity.status(HttpStatus.OK).body(null);
+      GetRestaurantsResponse getRestaurantsResponse2 = new GetRestaurantsResponse(restaurants);
+      System.out.println(getRestaurantsResponse2.getRestaurants().size());
+      // TimeUnit.SECONDS.sleep(3);
+      System.out.println(LocalTime.now());
+      return new ResponseEntity<>(getRestaurantsResponse2, HttpStatus.OK);
+      // return ResponseEntity.status(HttpStatus.OK).body(getRestaurantsResponse);
+        
+      // return ResponseEntity.status(HttpStatus.OK).body(null);
+    } catch (Exception ex) {
+      return (ResponseEntity.status(400).body(null));
+    }
 
   }
 

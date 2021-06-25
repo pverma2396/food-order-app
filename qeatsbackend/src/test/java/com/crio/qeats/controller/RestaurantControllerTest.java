@@ -252,6 +252,8 @@ public class RestaurantControllerTest {
         get(uri.toString()).accept(APPLICATION_JSON_UTF8)
     ).andReturn().getResponse();
 
+    // System.out.println(response.getContentAsString());
+
     assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
   }
 

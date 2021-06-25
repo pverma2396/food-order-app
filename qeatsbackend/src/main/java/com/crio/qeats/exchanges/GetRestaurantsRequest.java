@@ -6,16 +6,19 @@
 
 package com.crio.qeats.exchanges;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
+// import javax.validation.constraints.Max;
+// import javax.validation.constraints.Min;
+// import javax.validation.constraints.NotNull;
+
+// import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+// import lombok.NoArgsConstructor;
+// import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-// TODO: CRIO_TASK_MODULE_RESTAURANTSAPI
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
+
+//  CRIO_TASK_MODULE_RESTAURANTSAPI
 //  Implement GetRestaurantsRequest.
 //  Complete the class such that it is able to deserialize the incoming query params from
 //  REST API clients.
@@ -25,12 +28,18 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class GetRestaurantsRequest {
-  @NonNull
-  double latitude;
-  @NonNull
-  double longitude;
+
+  @Required
+  Double latitude;
+  
+  @Required
+  Double longitude;
+
   String searchFor;
 
+  public GetRestaurantsRequest(double latitude, double longitude){
+    this.latitude = Double.valueOf(latitude);
+    this.longitude = Double.valueOf(longitude);  
+  }
 
 }
-
