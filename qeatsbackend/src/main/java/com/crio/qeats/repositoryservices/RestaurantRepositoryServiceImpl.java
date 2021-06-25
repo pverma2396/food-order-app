@@ -75,10 +75,20 @@ public class RestaurantRepositoryServiceImpl implements RestaurantRepositoryServ
     restaurants2 = restaurantRepository.findAll();
 
     for (RestaurantEntity re: restaurants2) {
+      // if (restaurants.size() == 50) {
+      //   break;
+      // }
+      // if (re.getName().equals("M CríÂme")) {
+      //   continue;
+      // }
       if (isRestaurantCloseByAndOpen(re, currentTime, latitude, longitude, servingRadiusInKms)) {
         Restaurant r = modelMapper.map(re, Restaurant.class);
         restaurants.add(r);
       }
+
+      //checking if app is crashing consistently for large no. of restaurants
+      // Restaurant r = modelMapper.map(re, Restaurant.class);
+      // restaurants.add(r);
     }
 
     //CHECKSTYLE:OFF

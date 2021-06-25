@@ -169,7 +169,6 @@ public class RestaurantControllerTest {
 
   @Test
   public void incorrectlySpelledLongitudeParamResultsInBadHttpRequest() throws Exception {
-    // mocks not required, since validation will fail before that.
     URI uri = UriComponentsBuilder
         .fromPath(RESTAURANT_API_URI)
         .queryParam("latitude", "10")

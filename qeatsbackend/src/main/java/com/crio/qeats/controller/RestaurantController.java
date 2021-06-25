@@ -6,16 +6,25 @@
 
 package com.crio.qeats.controller;
 
+import com.crio.qeats.dto.Restaurant;
 import com.crio.qeats.exchanges.GetRestaurantsRequest;
 import com.crio.qeats.exchanges.GetRestaurantsResponse;
 import com.crio.qeats.services.RestaurantService;
 import com.crio.qeats.utils.GeoLocation;
 
+// import jdk.nashorn.internal.runtime.regexp.joni.Matcher;
+
 import java.time.LocalTime;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+// import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.validation.Valid;
-import lombok.extern.log4j.Log4j2;
+// import lombok.extern.log4j.Log4j2;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,34 +62,96 @@ public class RestaurantController {
   public ResponseEntity<GetRestaurantsResponse> getRestaurants(
        GetRestaurantsRequest getRestaurantsRequest) {
 
-    // log.info("getRestaurants called with {}", getRestaurantsRequest);
-    // Logger.info("getRestaurants called with {}", getRestaurantsRequest);
     GetRestaurantsResponse getRestaurantsResponse;
-    // double max = (Double) null;
-    
-    // if (getRestaurantsRequest.getLatitude() == max 
-    // || getRestaurantsRequest.getLongitude() == max) {
-    //   return (ResponseEntity.status(400).body(null));
-    // }
 
     GeoLocation geoLocation = new GeoLocation(getRestaurantsRequest.getLatitude(),
           getRestaurantsRequest.getLongitude());
     
-    System.out.println(geoLocation);
+    System.out.println(LocalTime.now());
+    // Logger.info("Congrats! Your QEatsApplication server has started");
 
     if (!geoLocation.isValidGeoLocation()) {
       System.out.println(geoLocation.isValidGeoLocation());
       return (ResponseEntity.status(400).body(null));
     }
 
+    
     //CHECKSTYLE:OFF
     getRestaurantsResponse = restaurantService
-          .findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
+        .findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
     // log.info("getRestaurants returned {}", getRestaurantsResponse);
-    // Log.info("getRestaurants returned {}", getRestaurantsResponse);
     //CHECKSTYLE:ON
+    Pattern pattern = Pattern.compile(
+                    "[^[a-z0-9 ]^[\\'\\!\\.\\,\\-\\/\\_\\&\\:\\@\\$\\#\\+\\)\\(]]",
+                    Pattern.CASE_INSENSITIVE);
+    List<Restaurant> restaurants = new ArrayList<Restaurant>();
+    System.out.println(getRestaurantsResponse.getRestaurants().size());
+    for (Restaurant grr : getRestaurantsResponse.getRestaurants()) {
+      // System.out.println(grr.getName());
+      Matcher m = pattern.matcher(grr.getName());
+      boolean b = m.find();
 
-    return ResponseEntity.ok().body(getRestaurantsResponse);
+      if (!b) {
+        restaurants.add(grr);
+      } else {
+        int flag = 0;
+        // System.out.println(grr.getName());
+        if (grr.getName().contains("é")) {
+          String correctedName = grr.getName().replace('é', 'e');
+          grr.setName(correctedName);
+          flag = 1;
+        }
+        if (grr.getName().contains("ö")) {
+          String correctedName = grr.getName().replace('ö', 'o');
+          grr.setName(correctedName);
+          flag = 1;
+        }
+        if (grr.getName().contains("í")) {
+          String correctedName = grr.getName().replace('í', 'i');
+          grr.setName(correctedName);
+          flag = 1;
+        }
+        if (grr.getName().contains("ñ")) {
+          String correctedName = grr.getName().replace('ñ', 'n');
+          grr.setName(correctedName);
+          flag = 1;
+        }
+        if (grr.getName().contains("ñ")) {
+          String correctedName = grr.getName().replace('ñ', 'n');
+          grr.setName(correctedName);
+          flag = 1;
+        }
+        if (grr.getName().contains("ó")) {
+          String correctedName = grr.getName().replace('ó', 'o');
+          grr.setName(correctedName);
+          flag = 1;
+        }
+        if (grr.getName().contains("ä")) {
+          String correctedName = grr.getName().replace('ä', 'a');
+          grr.setName(correctedName);
+          flag = 1;
+        }
+        if (grr.getName().contains("»")) {
+          String correctedName = grr.getName().replace('»', '»');
+          grr.setName(correctedName);
+          flag = 1;
+        }
+        restaurants.add(grr);
+        if (flag == 0) {
+          System.out.println(grr.getName());
+        }
+      }
+    }
+
+    GetRestaurantsResponse getRestaurantsResponse2 = new GetRestaurantsResponse(restaurants);
+    System.out.println(getRestaurantsResponse2.getRestaurants().size());
+    // TimeUnit.SECONDS.sleep(3);
+    System.out.println(LocalTime.now());
+    return new ResponseEntity<>(getRestaurantsResponse2, HttpStatus.OK);
+    // return ResponseEntity.status(HttpStatus.OK).body(getRestaurantsResponse);
+    
+    // return ResponseEntity.status(HttpStatus.OK).body(null);
+
   }
 
   // TIP(MODULE_MENUAPI): Model Implementation for getting menu given a restaurantId.

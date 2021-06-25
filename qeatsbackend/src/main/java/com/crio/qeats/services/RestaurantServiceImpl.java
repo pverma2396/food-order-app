@@ -45,7 +45,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     // RestaurantRepositoryServiceDummyImpl rservicedummyimpl =
     //     new RestaurantRepositoryServiceDummyImpl();
     List<Restaurant> restaurants = new ArrayList<Restaurant>();
-    System.out.println(currentTime);
+    // System.out.println(currentTime);
     if ((currentTime.compareTo(LocalTime.of(8, 0)) >= 0 
         && currentTime.compareTo(LocalTime.of(10, 0)) <= 0) 
           || (currentTime.compareTo(LocalTime.of(13, 0)) >= 0 
