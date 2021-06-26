@@ -6,15 +6,18 @@
 
 package com.crio.qeats.exchanges;
 
+
 // import javax.validation.constraints.Max;
 // import javax.validation.constraints.Min;
 // import javax.validation.constraints.NotNull;
 
-// import lombok.AllArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-// import lombok.NoArgsConstructor;
-// import lombok.NonNull;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+// import com.mongodb.lang.NonNull;
 
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 
@@ -26,18 +29,19 @@ import org.apache.logging.log4j.core.config.plugins.validation.constraints.Requi
 //  /qeats/v1/restaurants?latitude=28.4900591&longitude=77.536386&searchFor=tamil,
 //  this class should be able to deserialize lat/long and optional searchFor from that.
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class GetRestaurantsRequest {
 
-  @Required
+  @NonNull
   Double latitude;
   
-  @Required
+  @NonNull
   Double longitude;
 
   String searchFor;
 
-  public GetRestaurantsRequest(double latitude, double longitude){
+  public GetRestaurantsRequest(double latitude, double longitude) {
     this.latitude = Double.valueOf(latitude);
     this.longitude = Double.valueOf(longitude);  
   }

@@ -83,7 +83,7 @@ public class RestaurantController {
       // log.info("getRestaurants returned {}", getRestaurantsResponse);
       //CHECKSTYLE:ON
       Pattern pattern = Pattern.compile(
-                        "[^[a-z0-9 ]^[\\'\\!\\.\\,\\-\\/\\_\\&\\:\\@\\$\\#\\+\\)\\(]]",
+                        "[^[a-z0-9 ]]",
                         Pattern.CASE_INSENSITIVE);
       List<Restaurant> restaurants = new ArrayList<Restaurant>();
       System.out.println(getRestaurantsResponse.getRestaurants().size());
@@ -91,57 +91,19 @@ public class RestaurantController {
         // System.out.println(grr.getName());
         Matcher m = pattern.matcher(grr.getName());
         boolean b = m.find();
+        
+        if (b) {
+          System.out.println(grr.getName());
+          String correctedName = grr.getName().replaceAll("[^a-zA-Z0-9]","?");
+          grr.setName(correctedName);
 
-        if (!b) {
           restaurants.add(grr);
-        } else {
-          int flag = 0;
-          // System.out.println(grr.getName());
-          if (grr.getName().contains("é")) {
-            String correctedName = grr.getName().replace('é', 'e');
-            grr.setName(correctedName);
-            flag = 1;
-          }
-          if (grr.getName().contains("ö")) {
-            String correctedName = grr.getName().replace('ö', 'o');
-            grr.setName(correctedName);
-            flag = 1;
-          }
-          if (grr.getName().contains("í")) {
-            String correctedName = grr.getName().replace('í', 'i');
-            grr.setName(correctedName);
-            flag = 1;
-          }
-          if (grr.getName().contains("ñ")) {
-            String correctedName = grr.getName().replace('ñ', 'n');
-            grr.setName(correctedName);
-            flag = 1;
-          }
-          if (grr.getName().contains("ñ")) {
-            String correctedName = grr.getName().replace('ñ', 'n');
-            grr.setName(correctedName);
-            flag = 1;
-          }
-          if (grr.getName().contains("ó")) {
-            String correctedName = grr.getName().replace('ó', 'o');
-            grr.setName(correctedName);
-            flag = 1;
-          }
-          if (grr.getName().contains("ä")) {
-            String correctedName = grr.getName().replace('ä', 'a');
-            grr.setName(correctedName);
-            flag = 1;
-          }
-          if (grr.getName().contains("»")) {
-            String correctedName = grr.getName().replace('»', '»');
-            grr.setName(correctedName);
-            flag = 1;
-          }
-          restaurants.add(grr);
-          if (flag == 0) {
-            System.out.println(grr.getName());
-          }
         }
+
+        // String correctedName = grr.getName().replaceAll("[^a-zA-Z0-9]","?");
+        // grr.setName(correctedName);
+
+        // restaurants.add(grr);
       }
 
       GetRestaurantsResponse getRestaurantsResponse2 = new GetRestaurantsResponse(restaurants);
