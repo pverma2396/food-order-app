@@ -29,7 +29,7 @@ import org.apache.logging.log4j.core.config.plugins.validation.constraints.Requi
 //  /qeats/v1/restaurants?latitude=28.4900591&longitude=77.536386&searchFor=tamil,
 //  this class should be able to deserialize lat/long and optional searchFor from that.
 @Data
-@NoArgsConstructor
+// @NoArgsConstructor
 @AllArgsConstructor
 public class GetRestaurantsRequest {
 
@@ -40,6 +40,10 @@ public class GetRestaurantsRequest {
   Double longitude;
 
   String searchFor;
+
+  public GetRestaurantsRequest(){
+    
+  }
 
   public GetRestaurantsRequest(Double latitude, Double longitude) {
     this.latitude = latitude;
