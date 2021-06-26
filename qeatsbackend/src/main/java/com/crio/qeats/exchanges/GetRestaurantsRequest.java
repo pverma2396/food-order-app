@@ -41,9 +41,9 @@ public class GetRestaurantsRequest {
 
   String searchFor;
 
-  public GetRestaurantsRequest(double latitude, double longitude) {
-    this.latitude = Double.valueOf(latitude);
-    this.longitude = Double.valueOf(longitude);  
+  public GetRestaurantsRequest(Double latitude, Double longitude) {
+    this.latitude = latitude;
+    this.longitude = longitude;  
   }
 
 }
