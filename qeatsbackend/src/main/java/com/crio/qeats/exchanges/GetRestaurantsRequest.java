@@ -42,7 +42,7 @@ public class GetRestaurantsRequest {
   String searchFor;
 
   public GetRestaurantsRequest(){
-    
+
   }
 
   public GetRestaurantsRequest(Double latitude, Double longitude) {
