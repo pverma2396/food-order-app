@@ -8,9 +8,11 @@ package com.crio.qeats.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.NotNull;
+// import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,31 +25,31 @@ public class RestaurantEntity {
   @Id
   private String id;
 
-  @NotNull
+  @NonNull
   private String restaurantId;
 
-  @NotNull
+  @NonNull
   private String name;
 
-  @NotNull
+  @NonNull
   private String city;
 
-  @NotNull
+  @NonNull
   private String imageUrl;
 
-  @NotNull
+  @NonNull
   private Double latitude;
 
-  @NotNull
+  @NonNull
   private Double longitude;
 
-  @NotNull
+  @NonNull
   private String opensAt;
 
-  @NotNull
+  @NonNull
   private String closesAt;
 
-  @NotNull
+  @NonNull
   private List<String> attributes = new ArrayList<>();
 
 }
