@@ -49,6 +49,8 @@ import org.springframework.test.context.ContextConfiguration;
 // 2. Test RestaurantService Api by mocking RestaurantRepositoryService.
 
 // @ContextConfiguration(classes = {RestaurantRepositoryServiceImpl.class})
+
+
 @SpringBootTest(classes = {QEatsApplication.class})
 @MockitoSettings(strictness = Strictness.STRICT_STUBS)
 @DirtiesContext
@@ -131,6 +133,8 @@ class RestaurantServiceTest {
 
     assertEquals(getServingRadius2(loadRestaurantsDuringNormalHours(), LocalTime.of(11, 0)), "5.0");
     // assertFalse(false);
+
+
   }
 
 

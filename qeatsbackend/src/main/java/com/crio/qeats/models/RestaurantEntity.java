@@ -8,12 +8,13 @@ package com.crio.qeats.models;
 
 import java.util.ArrayList;
 import java.util.List;
-// import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import org.springframework.data.annotation.Id;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 // Java class that maps to Mongo collection.
@@ -53,4 +54,32 @@ public class RestaurantEntity {
   private List<String> attributes = new ArrayList<>();
 
 }
+
+
+
+// @NotNull
+//   private String restaurantId;
+
+//   @NotNull
+//   private String name;
+
+//   @NotNull
+//   private String city;
+
+//   @NotNull
+//   private String imageUrl;
+
+//   @NotNull
+//   private Double latitude;
+
+//   @NotNull
+//   private Double longitude;
+
+//   @NotNull
+//   private String opensAt;
+
+//   @NotNull
+//   private String closesAt;
+
+//   @NotNull
 

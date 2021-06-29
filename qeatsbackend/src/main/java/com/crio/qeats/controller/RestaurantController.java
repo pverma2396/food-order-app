@@ -17,24 +17,24 @@ import com.crio.qeats.utils.GeoLocation;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+// import java.util.concurrent.TimeUnit;
 // import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.validation.Valid;
+// import javax.validation.Valid;
 // import lombok.extern.log4j.Log4j2;
-import org.slf4j.Logger;
+// import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.DeleteMapping;
+// import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI
@@ -63,12 +63,15 @@ public class RestaurantController {
       GetRestaurantsRequest getRestaurantsRequest) {
 
     try {
+      
+      System.out.println(LocalTime.now());
+
       GetRestaurantsResponse getRestaurantsResponse;
 
       GeoLocation geoLocation = new GeoLocation(getRestaurantsRequest.getLatitude(),
               getRestaurantsRequest.getLongitude());
         
-      System.out.println(LocalTime.now());
+      
       // Logger.info("Congrats! Your QEatsApplication server has started");
 
       if (!geoLocation.isValidGeoLocation()) {
@@ -86,14 +89,14 @@ public class RestaurantController {
                         "[^[a-z0-9 ]]",
                         Pattern.CASE_INSENSITIVE);
       List<Restaurant> restaurants = new ArrayList<Restaurant>();
-      System.out.println(getRestaurantsResponse.getRestaurants().size());
+      // System.out.println(getRestaurantsResponse.getRestaurants().size());
       for (Restaurant grr : getRestaurantsResponse.getRestaurants()) {
         // System.out.println(grr.getName());
         Matcher m = pattern.matcher(grr.getName());
         boolean b = m.find();
         
         if (b) {
-          System.out.println(grr.getName());
+          // System.out.println(grr.getName());
           String correctedName = grr.getName().replaceAll("[^a-zA-Z0-9]","?");
           grr.setName(correctedName);
 
@@ -107,7 +110,7 @@ public class RestaurantController {
       }
 
       GetRestaurantsResponse getRestaurantsResponse2 = new GetRestaurantsResponse(restaurants);
-      System.out.println(getRestaurantsResponse2.getRestaurants().size());
+      // System.out.println(getRestaurantsResponse2.getRestaurants().size());
       // TimeUnit.SECONDS.sleep(3);
       System.out.println(LocalTime.now());
       return new ResponseEntity<>(getRestaurantsResponse2, HttpStatus.OK);
@@ -152,6 +155,22 @@ public class RestaurantController {
   //          : 5xx, if server side error.
   // Eg:
   // curl -X GET "http://localhost:8081/qeats/v1/menu?restaurantId=11"
+  
+  
+  // @GetMapping(RESTAURANTS_API)
+  // public ResponseEntity<GetRestaurantsResponse> getRestaurants(
+  //      GetRestaurantsRequest getRestaurantsRequest) {
+
+  //   log.info("getRestaurants called with {}", getRestaurantsRequest);
+  //   GetRestaurantsResponse getRestaurantsResponse;
+
+  //     getRestaurantsResponse = restaurantService
+  //         .findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
+  //     log.info("getRestaurants returned {}", getRestaurantsResponse);
+
+  //   return ResponseEntity.ok().body(getRestaurantsResponse);
+  // }
+
 
 
 
